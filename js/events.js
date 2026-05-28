@@ -29,7 +29,7 @@ function renderMyList() {
   if (sg.length) {
     html += '<div class="section-label">Saved age groups</div>';
     sg.forEach(function(item) {
-      html += '<div class="my-event-card age-type" data-oc="' + item.c.id + '">'
+      html += '<div class="my-event-card age-type" data-oag-c="' + item.c.id + '" data-oag-g="' + item.g.gid + '">'
         + '<div class="my-event-icon blue-icon"><i class="ti ti-users"></i></div>'
         + '<div class="my-event-info"><div class="my-event-title">' + item.g.age + ' Division</div><div class="my-event-sub">' + item.c.name + '</div></div>'
         + '<div class="my-event-right"><div class="my-event-date">' + item.g.d.split('–')[0] + '</div>'
@@ -39,6 +39,7 @@ function renderMyList() {
   }
   el.innerHTML = html;
   el.querySelectorAll('[data-oc]').forEach(function(el){ el.addEventListener('click', function(){ openChampDetail(this.dataset.oc); }); });
+  el.querySelectorAll('[data-oag-c]').forEach(function(el){ el.addEventListener('click', function(){ openAgeDetail(this.dataset.oagC, this.dataset.oagG); }); });
 }
 
 function renderMyCal() {
@@ -73,7 +74,10 @@ function renderMyCal() {
     var gr = grps[k];
     var h = '<div class="tl-row"><div class="tl-date"><div class="tl-day">'+gr.d+'</div><div class="tl-mon">'+gr.month+'</div><div class="tl-lbl">'+gr.dl+'</div></div><div class="tl-cards">';
     gr.items.forEach(function(e){
-      h += '<div class="cal-card '+(e.type==='champ'?'champ-ev':'age-ev')+(isPast?' past-card':'')+'" data-oc="'+e.c.id+'">'
+      var dataAttr = e.type==='age'
+        ? ' data-oag-c="'+e.c.id+'" data-oag-g="'+e.g.gid+'"'
+        : ' data-oc="'+e.c.id+'"';
+      h += '<div class="cal-card '+(e.type==='champ'?'champ-ev':'age-ev')+(isPast?' past-card':'')+'"'+dataAttr+'>'
         + '<div class="cal-top"><div class="cal-icon '+(e.type==='champ'?'champ-ev':'age-ev')+'"><i class="ti ti-'+(e.type==='champ'?'award':'users')+'"></i></div>'
         + '<div class="cal-body"><div class="cal-title">'+(e.type==='champ'?e.c.name:e.g.age+' Division')+'</div><div class="cal-sub">'+(e.type==='champ'?e.c.dates:e.c.name)+'</div></div>'
         + '<div class="cal-type-badge'+(e.type==='age'?' age':'')+'">'+(e.type==='champ'?'Championship':'Age group')+'</div></div>'
@@ -89,6 +93,7 @@ function renderMyCal() {
   future.forEach(function(k){ html += rg(k, false); });
   el.innerHTML = html;
   el.querySelectorAll('[data-oc]').forEach(function(card){ card.addEventListener('click', function(){ openChampDetail(this.dataset.oc); }); });
+  el.querySelectorAll('[data-oag-c]').forEach(function(card){ card.addEventListener('click', function(){ openAgeDetail(this.dataset.oagC, this.dataset.oagG); }); });
 }
 
 // ── ALL EVENTS ──
