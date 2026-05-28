@@ -187,7 +187,6 @@ function openAgeDetail(cid, gid) {
   currentAgeKey = { cid: cid, gid: gid };
   document.getElementById('ev-age-det-logo').style.background = c.bg;
   document.getElementById('ev-age-det-logo').textContent = c.abbr;
-  document.getElementById('ev-age-det-eyebrow').textContent = c.name;
   document.getElementById('ev-age-det-name').textContent = g.age + ' Division';
   document.getElementById('ev-age-det-meta').innerHTML = '<span class="detail-meta-item"><i class="ti ti-calendar"></i>' + g.d + '</span><span style="font-size:10px;color:#ccc">·</span><span class="detail-meta-item"><i class="ti ti-map-pin"></i>' + g.loc.split(',')[0] + '</span>';
   document.getElementById('ev-age-det-back-label').textContent = c.name;
