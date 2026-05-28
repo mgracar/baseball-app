@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baseball – Teams</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <i class="ti ti-signal-4g"></i><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i>
+    </div>
+  </div>
+
+  <!-- ═══ TEAMS SCREEN ═══ -->
+  <div class="screen">
+    <div class="fixed-top">
+      <div class="page-title">Teams</div>
+      <div class="tab-row">
+        <button class="tab-btn active" id="tt-s">Schedule</button>
+        <button class="tab-btn" id="tt-f">Following</button>
+      </div>
+    </div>
+
+    <!-- SCHEDULE PANE -->
+    <div class="pane" id="tp-s">
+      <div class="view-toggle-row">
+        <button class="view-toggle-btn active" id="tv-p">Parent view</button>
+        <button class="view-toggle-btn inactive" id="tv-t">Team view</button>
+      </div>
+      <div class="divider-h" style="margin-top:10px"></div>
+
+      <!-- Parent view (static) -->
+      <div class="pane" id="tv-pp">
+        <div class="scroll-view"><div class="inner-pad">
+
+          <!-- May 25 -->
+          <div class="tl-row">
+            <div class="tl-date"><div class="tl-day">25</div><div class="tl-mon">May</div><div class="tl-lbl">Sun</div></div>
+            <div class="tl-cards">
+              <div class="event-card type-practice done">
+                <div class="event-top">
+                  <div class="event-icon type-practice"><i class="ti ti-ball-baseball"></i></div>
+                  <div class="event-body"><div class="event-title">Practice</div><div class="event-sub">Riverside Field · U12 Red</div></div>
+                  <div class="event-right"><div class="event-done">Done</div><div style="font-size:10px;color:#ccc">9:00 AM</div></div>
+                </div>
+              </div>
+              <div class="event-card type-game done">
+                <div class="event-top">
+                  <div class="event-icon type-game"><i class="ti ti-trophy"></i></div>
+                  <div class="event-body"><div class="event-title">Game</div><div class="event-sub">Northside Diamond</div></div>
+                  <div class="event-right"><div class="event-done">W 8–4</div><div style="font-size:10px;color:#ccc">11:00 AM</div></div>
+                </div>
+                <div class="event-teams">
+                  <div class="game-row"><div class="team-badge c-sg">SG</div><div class="team-name">Small Giants</div><div class="team-score" style="color:#ccc">8</div></div>
+                  <div class="game-row dim"><div class="team-badge c-phi">EA</div><div class="team-name">Eagles</div><div class="team-score" style="color:#ccc">4</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="divider-s"></div>
+
+          <!-- May 26 -->
+          <div class="tl-row">
+            <div class="tl-date"><div class="tl-day">26</div><div class="tl-mon">May</div><div class="tl-lbl">Mon</div></div>
+            <div class="tl-cards">
+              <div class="event-card type-practice done">
+                <div class="event-top">
+                  <div class="event-icon type-practice"><i class="ti ti-ball-baseball"></i></div>
+                  <div class="event-body"><div class="event-title">Practice</div><div class="event-sub">Riverside Field · U12 Red</div></div>
+                  <div class="event-right"><div class="event-done">Done</div><div style="font-size:10px;color:#ccc">5:30 PM</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOW marker -->
+          <div class="tl-now">
+            <div class="tl-now-dot"></div>
+            <div class="tl-now-label">9:41 AM</div>
+            <div class="tl-now-line"></div>
+          </div>
+
+          <!-- May 27 -->
+          <div class="tl-row">
+            <div class="tl-date"><div class="tl-day">27</div><div class="tl-mon">May</div><div class="tl-lbl" style="color:#ef4444">Today</div></div>
+            <div class="tl-cards">
+              <div class="event-card type-practice">
+                <div class="event-top">
+                  <div class="event-icon type-practice"><i class="ti ti-ball-baseball"></i></div>
+                  <div class="event-body"><div class="event-title">Practice</div><div class="event-sub">Riverside Field · U12 Red</div></div>
+                  <div class="event-right"><div class="event-time amber">4:00 PM</div></div>
+                </div>
+              </div>
+              <div class="event-card type-game">
+                <div class="event-top">
+                  <div class="event-icon type-game"><i class="ti ti-trophy"></i></div>
+                  <div class="event-body"><div class="event-title">Game</div><div class="event-sub">Central Park Field 3</div></div>
+                  <div class="event-right"><div class="event-time">6:30 PM</div></div>
+                </div>
+                <div class="event-teams">
+                  <div class="game-row"><div class="team-badge c-sg">SG</div><div class="team-name">Small Giants</div></div>
+                  <div class="game-row"><div class="team-badge c-cle">ST</div><div class="team-name">Storm</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="divider-s"></div>
+
+          <!-- May 28 -->
+          <div class="tl-row">
+            <div class="tl-date"><div class="tl-day">28</div><div class="tl-mon">May</div><div class="tl-lbl">Tue</div></div>
+            <div class="tl-cards">
+              <div class="event-card type-game">
+                <div class="event-top">
+                  <div class="event-icon type-game"><i class="ti ti-trophy"></i></div>
+                  <div class="event-body"><div class="event-title">Game</div><div class="event-sub">Oak Valley Park</div></div>
+                  <div class="event-right"><div class="event-time">10:00 AM</div></div>
+                </div>
+                <div class="event-teams">
+                  <div class="game-row"><div class="team-badge c-sg">SG</div><div class="team-name">Small Giants</div></div>
+                  <div class="game-row"><div class="team-badge c-min">WO</div><div class="team-name">Wolves</div></div>
+                </div>
+              </div>
+              <div class="event-card type-practice">
+                <div class="event-top">
+                  <div class="event-icon type-practice"><i class="ti ti-ball-baseball"></i></div>
+                  <div class="event-body"><div class="event-title">Practice</div><div class="event-sub">Riverside Field</div></div>
+                  <div class="event-right"><div class="event-time amber">5:30 PM</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="divider-s"></div>
+
+          <!-- Jun 6 Championship -->
+          <div class="tl-row">
+            <div class="tl-date"><div class="tl-day">6</div><div class="tl-mon">Jun</div><div class="tl-lbl">Fri</div></div>
+            <div class="tl-cards">
+              <div class="event-card type-champ">
+                <div class="event-top">
+                  <div class="event-icon type-champ"><i class="ti ti-award"></i></div>
+                  <div class="event-body"><div class="event-title">Championship starts</div><div class="event-sub">Regional Youth · U12</div></div>
+                  <div class="event-right">
+                    <div class="countdown"><div class="countdown-dot"></div>7 days</div>
+                    <div class="event-time red">All weekend</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
+      </div><!-- end parent pane -->
+
+      <!-- Team view (dynamic) -->
+      <div class="pane hidden" id="tv-tp">
+        <div class="scroll-view"><div class="inner-pad" id="tv-content"></div></div>
+      </div>
+    </div><!-- end schedule pane -->
+
+    <!-- FOLLOWING PANE -->
+    <div class="pane hidden" id="tp-f">
+      <div class="search-bar-row">
+        <div class="search-bar"><i class="ti ti-search"></i><input type="text" id="t-search-input" placeholder="Search teams…" /></div>
+      </div>
+      <div class="divider-h" style="margin:8px 0 0"></div>
+      <div class="scroll-view"><div class="inner-pad" id="t-fol-list"></div></div>
+    </div>
+
+  </div><!-- end screen -->
+
+  <!-- TEAM SEARCH OVERLAY -->
+  <div class="overlay-up" id="t-ov">
+    <div class="ov-top">
+      <div class="ov-row">
+        <div class="ov-input-wrap"><i class="ti ti-search"></i><input type="text" id="t-ov-inp" placeholder="Search teams…" /></div>
+        <button class="ov-cancel" id="t-ov-cancel">Cancel</button>
+      </div>
+    </div>
+    <div class="ov-hero" id="t-ov-hero">
+      <div class="ov-hero-icon"><i class="ti ti-shield"></i></div>
+      <div class="ov-hero-title">Find your teams</div>
+      <div class="ov-hero-body">Search by team name or city to <strong>manage teams you follow</strong>, or discover new ones.</div>
+    </div>
+    <div class="ov-divider"></div>
+    <div class="ov-scroll"><div class="ov-pad" id="t-ov-results"></div></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="index.html"><div class="nav-icon-wrap"><i class="ti ti-home"></i></div><span class="nav-label">Home</span></a>
+    <a class="nav-item active" href="teams.html"><div class="nav-icon-wrap"><i class="ti ti-shield"></i><div class="nav-dot"></div></div><span class="nav-label">Teams</span></a>
+    <a class="nav-item" href="players.html"><div class="nav-icon-wrap"><i class="ti ti-user"></i></div><span class="nav-label">Players</span></a>
+    <a class="nav-item" href="events.html"><div class="nav-icon-wrap"><i class="ti ti-calendar"></i></div><span class="nav-label">Events</span></a>
+    <a class="nav-item" href="video.html"><div class="nav-icon-wrap"><i class="ti ti-player-play"></i></div><span class="nav-label">Video</span></a>
+  </nav>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/teams.js"></script>
+</body>
+</html>

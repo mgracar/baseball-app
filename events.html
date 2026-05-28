@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baseball – Events</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <i class="ti ti-signal-4g"></i><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i>
+    </div>
+  </div>
+
+  <!-- ═══ EVENTS SCREEN ═══ -->
+  <div class="screen">
+    <div class="fixed-top">
+      <div class="page-title">Events</div>
+      <div class="tab-row">
+        <button class="tab-btn active" id="et-my">My events</button>
+        <button class="tab-btn" id="et-all">All events</button>
+      </div>
+    </div>
+
+    <!-- MY EVENTS PANE -->
+    <div class="pane" id="ep-my">
+      <div class="my-events-top">
+        <span class="view-label" id="evvlbl">List view</span>
+        <div class="view-icon-toggle">
+          <button class="view-icon-btn active" id="vtl"><i class="ti ti-list"></i></button>
+          <button class="view-icon-btn" id="vtc"><i class="ti ti-calendar"></i></button>
+        </div>
+      </div>
+      <div class="divider-h" style="margin:8px 0 0"></div>
+      <div class="pane" id="ev-list-pane">
+        <div class="scroll-view"><div class="inner-pad" id="ev-my-list"></div></div>
+      </div>
+      <div class="pane hidden" id="ev-cal-pane">
+        <div class="scroll-view"><div class="inner-pad" id="ev-my-cal"></div></div>
+      </div>
+    </div>
+
+    <!-- ALL EVENTS PANE -->
+    <div class="pane hidden" id="ep-all">
+      <div class="search-bar-row">
+        <div class="search-bar"><i class="ti ti-search"></i><input type="text" id="ev-search-input" placeholder="Search championships…" /></div>
+        <button class="filter-btn" id="ev-filter-btn">
+          <i class="ti ti-adjustments-horizontal"></i>
+          <div class="filter-badge hidden" id="ev-filter-badge"></div>
+        </button>
+      </div>
+      <div class="sort-row">
+        <span class="sort-label">Sort:</span>
+        <div class="sort-chips">
+          <button class="sort-chip active" id="sc-date">Date</button>
+          <button class="sort-chip" id="sc-name">Name</button>
+          <button class="sort-chip" id="sc-country">Country</button>
+          <button class="sort-chip" id="sc-saved">Saved first</button>
+        </div>
+      </div>
+      <div class="divider-h" style="margin:8px 0 0"></div>
+      <div class="scroll-view"><div class="inner-pad" id="ev-all-list"></div></div>
+    </div>
+  </div><!-- end screen -->
+
+  <!-- CHAMPIONSHIP DETAIL (slides right) -->
+  <div class="overlay-right" id="ev-det">
+    <div class="detail-header">
+      <button class="detail-back" id="ev-det-back"><i class="ti ti-arrow-left"></i><span>All events</span></button>
+      <div class="detail-hero">
+        <div class="detail-logo" id="ev-det-logo"></div>
+        <div>
+          <div class="detail-name" id="ev-det-name"></div>
+          <div class="detail-meta" id="ev-det-meta"></div>
+        </div>
+      </div>
+      <div class="detail-save-row">
+        <button class="detail-save-btn" id="ev-det-savbtn"></button>
+      </div>
+    </div>
+    <div class="divider-h"></div>
+    <div class="detail-scroll">
+      <div class="detail-pad" id="ev-det-groups"></div>
+    </div>
+  </div>
+
+  <!-- AGE GROUP DETAIL (slides right, layered above champ detail) -->
+  <div class="overlay-right" id="ev-age-det" style="z-index:155">
+    <div class="detail-header">
+      <button class="detail-back" id="ev-age-det-back"><i class="ti ti-arrow-left"></i><span id="ev-age-det-back-label">Back</span></button>
+      <div class="detail-hero">
+        <div class="detail-logo" id="ev-age-det-logo"></div>
+        <div style="flex:1;min-width:0">
+          <div class="age-detail-eyebrow" id="ev-age-det-eyebrow"></div>
+          <div class="detail-name" id="ev-age-det-name"></div>
+          <div class="detail-meta" id="ev-age-det-meta"></div>
+        </div>
+      </div>
+      <div class="detail-save-row">
+        <button class="detail-save-btn" id="ev-age-det-savbtn"></button>
+      </div>
+    </div>
+    <div class="divider-h"></div>
+    <div class="detail-scroll">
+      <div class="detail-pad" id="ev-age-det-body"></div>
+    </div>
+  </div>
+
+  <!-- FILTER SHEET (slides up from bottom) -->
+  <div class="overlay-sheet" id="ev-fs">
+    <div class="filter-sheet">
+      <div class="filter-sheet-header">
+        <span class="filter-sheet-title">Filters</span>
+        <button class="filter-close-btn" id="fs-close-btn"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="filter-scroll">
+
+        <!-- Location -->
+        <div class="filter-section">
+          <div class="filter-section-title">Location</div>
+          <div class="filter-label">City</div>
+          <div class="filter-input-wrap"><i class="ti ti-search"></i><input type="text" id="f-city" placeholder="Search for a city" /></div>
+          <div class="filter-label">State</div>
+          <select class="filter-select" id="f-state">
+            <option value="">Select State</option><option>Illinois</option><option>Texas</option>
+            <option>California</option><option>New York</option><option>Florida</option><option>Ohio</option>
+          </select>
+          <div class="slider-row"><span class="filter-label" style="margin:0">Search Radius</span><span class="slider-val" id="f-rad-val">100 miles</span></div>
+          <input type="range" class="filter-range" id="f-rad" min="10" max="500" step="10" value="100" />
+          <div class="radius-chips">
+            <div class="radius-chip" data-v="10">10 miles</div>
+            <div class="radius-chip" data-v="25">25 miles</div>
+            <div class="radius-chip" data-v="50">50 miles</div>
+            <div class="radius-chip active" data-v="100">100 miles</div>
+            <div class="radius-chip" data-v="500">Any</div>
+          </div>
+        </div>
+
+        <!-- Date -->
+        <div class="filter-section">
+          <div class="filter-section-title">Date</div>
+          <div class="date-row">
+            <div class="date-field">
+              <div class="filter-label" style="margin-top:0">Start date</div>
+              <div class="date-box"><span id="f-start" style="font-size:13px;color:#bbb">Select Date</span><i class="ti ti-calendar"></i></div>
+            </div>
+            <div class="date-field">
+              <div class="filter-label" style="margin-top:0">End date</div>
+              <div class="date-box"><span id="f-end" style="font-size:13px;color:#bbb">Select Date</span><i class="ti ti-calendar"></i></div>
+            </div>
+          </div>
+          <div class="date-preset-chips">
+            <div class="date-preset-chip" data-p="This Week">This Week</div>
+            <div class="date-preset-chip" data-p="Next Week">Next Week</div>
+            <div class="date-preset-chip active" data-p="This Month">This Month</div>
+            <div class="date-preset-chip" data-p="Next Month">Next Month</div>
+            <div class="date-preset-chip" data-p="Next 3 Months">Next 3 Months</div>
+            <div class="date-preset-chip" data-p="Next 6 Months">Next 6 Months</div>
+            <div class="date-preset-chip" data-p="Next 12 Months">Next 12 Months</div>
+          </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="filter-section">
+          <div class="filter-section-title">Event Details</div>
+          <div class="filter-label">Age Group</div>
+          <select class="filter-select" id="f-age"><option value="">Select Age Groups</option><option>U10</option><option>U12</option><option>U14</option><option>U16</option><option>U18</option></select>
+          <div class="filter-label">Classification</div>
+          <select class="filter-select" id="f-cls"><option value="">Select Classifications</option><option>AAA</option><option>AA</option><option>A</option><option>Open</option></select>
+          <div class="filter-label">Circuit <i class="ti ti-info-circle" style="font-size:12px;vertical-align:-1px;color:#aaa"></i></div>
+          <select class="filter-select" id="f-cir"><option value="">Select Circuits</option><option>National</option><option>Regional</option><option>Local</option></select>
+          <div class="filter-label">Event Type</div>
+          <select class="filter-select" id="f-ety"><option value="">Select Event Types</option><option>Championship</option><option>Tournament</option><option>League</option></select>
+          <div class="filter-label">Director</div>
+          <select class="filter-select" id="f-dir"><option value="">Select Directors</option><option>John Smith</option><option>Maria Garcia</option><option>David Chen</option></select>
+        </div>
+
+        <!-- Additional -->
+        <div class="filter-section" style="padding-bottom:16px">
+          <div class="filter-section-title">Additional</div>
+          <div class="filter-label">Sport</div>
+          <select class="filter-select" id="f-spt"><option value="">Select Sports</option><option>Baseball</option><option>Softball</option><option>T-Ball</option></select>
+          <div class="slider-row"><span class="filter-label" style="margin:0">Team Count Range</span><span class="slider-val" id="f-tc-val">0 – 1000</span></div>
+          <input type="range" class="filter-range" id="f-tc" min="0" max="1000" step="10" value="1000" />
+          <div class="toggle-row">
+            <span class="toggle-label">DK Scoring</span>
+            <button class="toggle-switch off" id="f-dk"></button>
+          </div>
+        </div>
+
+      </div><!-- end filter-scroll -->
+      <div class="filter-footer">
+        <button class="btn-apply" id="fs-apply">Apply</button>
+        <button class="btn-reset" id="fs-reset">Reset</button>
+      </div>
+    </div>
+  </div><!-- end filter sheet -->
+
+  <!-- NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="index.html"><div class="nav-icon-wrap"><i class="ti ti-home"></i></div><span class="nav-label">Home</span></a>
+    <a class="nav-item" href="teams.html"><div class="nav-icon-wrap"><i class="ti ti-shield"></i></div><span class="nav-label">Teams</span></a>
+    <a class="nav-item" href="players.html"><div class="nav-icon-wrap"><i class="ti ti-user"></i></div><span class="nav-label">Players</span></a>
+    <a class="nav-item active" href="events.html"><div class="nav-icon-wrap"><i class="ti ti-calendar"></i><div class="nav-dot"></div></div><span class="nav-label">Events</span></a>
+    <a class="nav-item" href="video.html"><div class="nav-icon-wrap"><i class="ti ti-player-play"></i></div><span class="nav-label">Video</span></a>
+  </nav>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/events.js"></script>
+</body>
+</html>

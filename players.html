@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baseball – Players</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <i class="ti ti-signal-4g"></i><i class="ti ti-wifi"></i><i class="ti ti-battery-2"></i>
+    </div>
+  </div>
+
+  <!-- ═══ PLAYERS SCREEN ═══ -->
+  <div class="screen">
+    <div class="fixed-top">
+      <div class="page-title">Players</div>
+      <div class="tab-row">
+        <button class="tab-btn active" id="pt-s">Schedule</button>
+        <button class="tab-btn" id="pt-f">Following</button>
+      </div>
+    </div>
+
+    <!-- SCHEDULE PANE -->
+    <div class="pane" id="pp-s">
+      <div class="divider-h" style="margin-top:10px"></div>
+      <div class="scroll-view">
+        <div class="inner-pad" id="p-sched"></div>
+      </div>
+    </div>
+
+    <!-- FOLLOWING PANE -->
+    <div class="pane hidden" id="pp-f">
+      <div class="search-bar-row">
+        <div class="search-bar"><i class="ti ti-search"></i><input type="text" id="p-search-input" placeholder="Search players…" /></div>
+      </div>
+      <div class="divider-h" style="margin:8px 0 0"></div>
+      <div class="scroll-view">
+        <div class="inner-pad" id="p-fol-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAYER SEARCH OVERLAY -->
+  <div class="overlay-up" id="p-ov">
+    <div class="ov-top">
+      <div class="ov-row">
+        <div class="ov-input-wrap"><i class="ti ti-search"></i><input type="text" id="p-ov-inp" placeholder="Search players…" /></div>
+        <button class="ov-cancel" id="p-ov-cancel">Cancel</button>
+      </div>
+    </div>
+    <div class="ov-hero" id="p-ov-hero">
+      <div class="ov-hero-icon"><i class="ti ti-user"></i></div>
+      <div class="ov-hero-title">Find your players</div>
+      <div class="ov-hero-body">Search by name or team to <strong>manage players you follow</strong>, or discover new ones.</div>
+    </div>
+    <div class="ov-divider"></div>
+    <div class="ov-scroll"><div class="ov-pad" id="p-ov-results"></div></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="index.html"><div class="nav-icon-wrap"><i class="ti ti-home"></i></div><span class="nav-label">Home</span></a>
+    <a class="nav-item" href="teams.html"><div class="nav-icon-wrap"><i class="ti ti-shield"></i></div><span class="nav-label">Teams</span></a>
+    <a class="nav-item active" href="players.html"><div class="nav-icon-wrap"><i class="ti ti-user"></i><div class="nav-dot"></div></div><span class="nav-label">Players</span></a>
+    <a class="nav-item" href="events.html"><div class="nav-icon-wrap"><i class="ti ti-calendar"></i></div><span class="nav-label">Events</span></a>
+    <a class="nav-item" href="video.html"><div class="nav-icon-wrap"><i class="ti ti-player-play"></i></div><span class="nav-label">Video</span></a>
+  </nav>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/players.js"></script>
+</body>
+</html>
