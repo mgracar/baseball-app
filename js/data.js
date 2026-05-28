@@ -153,6 +153,25 @@ function saveChampsState() {
 }
 
 // ── HELPERS ──
+function parseTimeToMinutes(t) {
+  if (!t) return null;
+  var m = String(t).trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+  if (!m) return null;
+  var h = parseInt(m[1], 10), min = parseInt(m[2], 10);
+  var suf = (m[3] || '').toUpperCase();
+  if (suf === 'PM' && h !== 12) h += 12;
+  if (suf === 'AM' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+function timelineSortKey(g) {
+  // past: -1 (top), live: now (9:41), upcoming: parse t
+  if (g.s === 'past') return -1;
+  if (g.s === 'live') return 9 * 60 + 41;
+  var t = parseTimeToMinutes(g.t);
+  return t === null ? 24 * 60 : t;
+}
+
 function buildTimeline(groups) {
   var grps = {}, keys = [], seen = {};
   groups.forEach(function(item) {
@@ -163,6 +182,13 @@ function buildTimeline(groups) {
       if (!seen[k]) { seen[k] = 1; keys.push(k); }
     }
     grps[k].items.push(item);
+  });
+  // Sort items inside each day by hour-of-day
+  keys.forEach(function(k){
+    grps[k].items.sort(function(a, b){
+      var ga = a.g || a, gb = b.g || b;
+      return timelineSortKey(ga) - timelineSortKey(gb);
+    });
   });
   var past   = keys.filter(function(k){ return grps[k].items.every(function(i){ var g=i.g||i; return g.s==='past'; }); });
   var today  = keys.filter(function(k){ return grps[k].l === 'Today'; });

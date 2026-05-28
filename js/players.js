@@ -1,5 +1,7 @@
 // ── PLAYERS PAGE ──
 
+var pFilters = { status: [], players: [] };
+
 function plCard(p, g) {
   return '<div class="player-card ' + g.s + '">'
     + '<div class="player-avatar ' + p.cls + (g.s==='past'?' dim':'') + '">' + p.init
@@ -24,12 +26,22 @@ function renderPlayerSched() {
   var el = document.getElementById('p-sched');
   if (!fol.length) {
     el.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="ti ti-user-plus"></i></div><div class="empty-title">No players followed</div><div class="empty-body">Follow players to see their schedule here.</div><button class="empty-cta" onclick="pTab(\'f\')">Browse players</button></div>';
+    document.getElementById('p-sched-count').textContent = 'Schedule';
     return;
   }
   var items = [];
   fol.forEach(function(p) {
-    p.games.forEach(function(g) { items.push({ p: p, g: g }); });
+    if (pFilters.players.length && !pFilters.players.includes(p.id)) return;
+    p.games.forEach(function(g) {
+      if (pFilters.status.length && !pFilters.status.includes(g.s)) return;
+      items.push({ p: p, g: g });
+    });
   });
+  document.getElementById('p-sched-count').textContent = items.length + ' game' + (items.length===1?'':'s');
+  if (!items.length) {
+    el.innerHTML = '<div class="no-results">No games match your filters</div>';
+    return;
+  }
   var tl = buildTimeline(items);
   var html = '';
   function rg(k) {
@@ -119,6 +131,55 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('p-ov-inp').value = '';
   });
 
+  // Filter sheet
+  document.getElementById('p-filter-btn').addEventListener('click', openPlayerFilter);
+  document.getElementById('p-fs-close').addEventListener('click', function(){ document.getElementById('p-fs').classList.remove('open'); });
+  document.getElementById('p-fs').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+  document.getElementById('p-fs-apply').addEventListener('click', applyPlayerFilter);
+  document.getElementById('p-fs-reset').addEventListener('click', resetPlayerFilter);
+
   renderPlayerSched();
   renderPlayerFol();
 });
+
+function openPlayerFilter() {
+  var statusEl = document.getElementById('p-fs-status');
+  statusEl.innerHTML = [['live','Live'],['upcoming','Upcoming'],['past','Past']].map(function(s){
+    var active = pFilters.status.indexOf(s[0]) !== -1;
+    return '<button class="radius-chip' + (active?' active':'') + '" data-fst="' + s[0] + '">' + s[1] + '</button>';
+  }).join('');
+  statusEl.querySelectorAll('[data-fst]').forEach(function(b){
+    b.addEventListener('click', function(){ this.classList.toggle('active'); });
+  });
+
+  var playersEl = document.getElementById('p-fs-players');
+  var fol = players.filter(function(p){ return p.fol; });
+  playersEl.innerHTML = fol.map(function(p){
+    var active = pFilters.players.indexOf(p.id) !== -1;
+    return '<button class="radius-chip' + (active?' active':'') + '" data-fpl="' + p.id + '">' + p.name + '</button>';
+  }).join('') || '<div class="no-results" style="padding:8px 0">No followed players</div>';
+  playersEl.querySelectorAll('[data-fpl]').forEach(function(b){
+    b.addEventListener('click', function(){ this.classList.toggle('active'); });
+  });
+
+  document.getElementById('p-fs').classList.add('open');
+}
+
+function applyPlayerFilter() {
+  pFilters.status = Array.from(document.querySelectorAll('#p-fs-status .radius-chip.active')).map(function(b){ return b.dataset.fst; });
+  pFilters.players = Array.from(document.querySelectorAll('#p-fs-players .radius-chip.active')).map(function(b){ return b.dataset.fpl; });
+  var n = pFilters.status.length + pFilters.players.length;
+  var badge = document.getElementById('p-filter-badge'), btn = document.getElementById('p-filter-btn');
+  if (n) { badge.textContent = n; badge.classList.remove('hidden'); btn.classList.add('active'); }
+  else   { badge.classList.add('hidden'); btn.classList.remove('active'); }
+  document.getElementById('p-fs').classList.remove('open');
+  renderPlayerSched();
+}
+
+function resetPlayerFilter() {
+  pFilters = { status: [], players: [] };
+  document.querySelectorAll('#p-fs .radius-chip.active').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('p-filter-badge').classList.add('hidden');
+  document.getElementById('p-filter-btn').classList.remove('active');
+  renderPlayerSched();
+}

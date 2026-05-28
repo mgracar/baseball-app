@@ -29,7 +29,14 @@
 
     <!-- SCHEDULE PANE -->
     <div class="pane" id="pp-s">
-      <div class="divider-h" style="margin-top:10px"></div>
+      <div class="sched-toolbar">
+        <span class="sched-count" id="p-sched-count">Schedule</span>
+        <button class="filter-btn" id="p-filter-btn">
+          <i class="ti ti-adjustments-horizontal"></i>
+          <div class="filter-badge hidden" id="p-filter-badge"></div>
+        </button>
+      </div>
+      <div class="divider-h"></div>
       <div class="scroll-view">
         <div class="inner-pad" id="p-sched"></div>
       </div>
@@ -43,6 +50,30 @@
       <div class="divider-h" style="margin:8px 0 0"></div>
       <div class="scroll-view">
         <div class="inner-pad" id="p-fol-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAYER FILTER SHEET -->
+  <div class="overlay-sheet" id="p-fs">
+    <div class="filter-sheet">
+      <div class="filter-sheet-header">
+        <span class="filter-sheet-title">Filter schedule</span>
+        <button class="filter-close-btn" id="p-fs-close"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="filter-scroll">
+        <div class="filter-section">
+          <div class="filter-section-title">Status</div>
+          <div class="radius-chips" id="p-fs-status"></div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-title">Players</div>
+          <div class="radius-chips" id="p-fs-players"></div>
+        </div>
+      </div>
+      <div class="filter-footer">
+        <button class="btn-apply" id="p-fs-apply">Apply</button>
+        <button class="btn-reset" id="p-fs-reset">Reset</button>
       </div>
     </div>
   </div>

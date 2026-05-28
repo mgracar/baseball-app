@@ -574,6 +574,13 @@ body { background: #d8d4dc; display: flex; justify-content: center; padding: 2re
 
 .hidden { display: none; }
 
+/* ── Schedule toolbar (teams + players) ── */
+.sched-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px 8px; flex-shrink: 0;
+}
+.sched-count { font-size: 11px; font-weight: 700; color: #aaa; letter-spacing: .5px; text-transform: uppercase; }
+
 /* ── Age group detail ── */
 .age-detail-eyebrow {
   font-size: 11px; font-weight: 700; color: #2563eb;

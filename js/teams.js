@@ -1,5 +1,7 @@
 // ── TEAMS PAGE ──
 
+var tFilters = { status: [], teams: [] };
+
 function gcCard(g) {
   return '<div class="game-card ' + g.s + '">'
     + '<div class="game-teams">'
@@ -26,12 +28,22 @@ function renderTeamView() {
   var el = document.getElementById('tv-content');
   if (!fol.length) {
     el.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="ti ti-shield"></i></div><div class="empty-title">No teams followed</div><div class="empty-body">Follow teams to see their games here.</div><button class="empty-cta" onclick="tTab(\'f\')">Browse teams</button></div>';
+    document.getElementById('t-sched-count').textContent = 'Schedule';
     return;
   }
   var items = [];
   fol.forEach(function(t) {
-    (teamGames[t.id] || []).forEach(function(g) { items.push(g); });
+    if (tFilters.teams.length && !tFilters.teams.includes(t.id)) return;
+    (teamGames[t.id] || []).forEach(function(g) {
+      if (tFilters.status.length && !tFilters.status.includes(g.s)) return;
+      items.push(g);
+    });
   });
+  document.getElementById('t-sched-count').textContent = items.length + ' game' + (items.length===1?'':'s');
+  if (!items.length) {
+    el.innerHTML = '<div class="no-results">No games match your filters</div>';
+    return;
+  }
   var tl = buildTimeline(items);
   var html = '';
   function rg(k) {
@@ -135,5 +147,56 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('t-ov-inp').value = '';
   });
 
+  // Filter sheet
+  document.getElementById('t-filter-btn').addEventListener('click', openTeamFilter);
+  document.getElementById('t-fs-close').addEventListener('click', function(){ document.getElementById('t-fs').classList.remove('open'); });
+  document.getElementById('t-fs').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+  document.getElementById('t-fs-apply').addEventListener('click', applyTeamFilter);
+  document.getElementById('t-fs-reset').addEventListener('click', resetTeamFilter);
+
   renderTeamFol();
+  renderTeamView();
 });
+
+function openTeamFilter() {
+  var statusEl = document.getElementById('t-fs-status');
+  statusEl.innerHTML = [['live','Live'],['upcoming','Upcoming'],['past','Past']].map(function(s){
+    var active = tFilters.status.indexOf(s[0]) !== -1;
+    return '<button class="radius-chip' + (active?' active':'') + '" data-fst="' + s[0] + '">' + s[1] + '</button>';
+  }).join('');
+  statusEl.querySelectorAll('[data-fst]').forEach(function(b){
+    b.addEventListener('click', function(){ this.classList.toggle('active'); });
+  });
+
+  var teamsEl = document.getElementById('t-fs-teams');
+  var fol = teams.filter(function(t){ return t.fol; });
+  teamsEl.innerHTML = fol.map(function(t){
+    var active = tFilters.teams.indexOf(t.id) !== -1;
+    return '<button class="radius-chip' + (active?' active':'') + '" data-ftm="' + t.id + '">' + t.abbr + '</button>';
+  }).join('') || '<div class="no-results" style="padding:8px 0">No followed teams</div>';
+  teamsEl.querySelectorAll('[data-ftm]').forEach(function(b){
+    b.addEventListener('click', function(){ this.classList.toggle('active'); });
+  });
+
+  document.getElementById('t-fs').classList.add('open');
+}
+
+function applyTeamFilter() {
+  tFilters.status = Array.from(document.querySelectorAll('#t-fs-status .radius-chip.active')).map(function(b){ return b.dataset.fst; });
+  tFilters.teams = Array.from(document.querySelectorAll('#t-fs-teams .radius-chip.active')).map(function(b){ return b.dataset.ftm; });
+  var n = tFilters.status.length + tFilters.teams.length;
+  var badge = document.getElementById('t-filter-badge'), btn = document.getElementById('t-filter-btn');
+  if (n) { badge.textContent = n; badge.classList.remove('hidden'); btn.classList.add('active'); }
+  else   { badge.classList.add('hidden'); btn.classList.remove('active'); }
+  document.getElementById('t-fs').classList.remove('open');
+  // Switch to Team view (parent view is static and not filterable)
+  tView('t');
+}
+
+function resetTeamFilter() {
+  tFilters = { status: [], teams: [] };
+  document.querySelectorAll('#t-fs .radius-chip.active').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('t-filter-badge').classList.add('hidden');
+  document.getElementById('t-filter-btn').classList.remove('active');
+  renderTeamView();
+}

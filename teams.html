@@ -33,7 +33,14 @@
         <button class="view-toggle-btn active" id="tv-p">Parent view</button>
         <button class="view-toggle-btn inactive" id="tv-t">Team view</button>
       </div>
-      <div class="divider-h" style="margin-top:10px"></div>
+      <div class="sched-toolbar">
+        <span class="sched-count" id="t-sched-count">Schedule</span>
+        <button class="filter-btn" id="t-filter-btn">
+          <i class="ti ti-adjustments-horizontal"></i>
+          <div class="filter-badge hidden" id="t-filter-badge"></div>
+        </button>
+      </div>
+      <div class="divider-h"></div>
 
       <!-- Parent view (static) -->
       <div class="pane" id="tv-pp">
@@ -174,6 +181,30 @@
     </div>
 
   </div><!-- end screen -->
+
+  <!-- TEAM FILTER SHEET -->
+  <div class="overlay-sheet" id="t-fs">
+    <div class="filter-sheet">
+      <div class="filter-sheet-header">
+        <span class="filter-sheet-title">Filter schedule</span>
+        <button class="filter-close-btn" id="t-fs-close"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="filter-scroll">
+        <div class="filter-section">
+          <div class="filter-section-title">Status</div>
+          <div class="radius-chips" id="t-fs-status"></div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-title">Teams</div>
+          <div class="radius-chips" id="t-fs-teams"></div>
+        </div>
+      </div>
+      <div class="filter-footer">
+        <button class="btn-apply" id="t-fs-apply">Apply</button>
+        <button class="btn-reset" id="t-fs-reset">Reset</button>
+      </div>
+    </div>
+  </div>
 
   <!-- TEAM SEARCH OVERLAY -->
   <div class="overlay-up" id="t-ov">
